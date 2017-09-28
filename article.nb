@@ -1,0 +1,50 @@
+purl = "https://www.patest.cn/contests/pat-a-practise/";
+pnum = "1007";(*prblem number*)
+phtml = Import[purl <> pnum, "Source"];
+pcontent = 
+  StringCases[phtml, 
+    RegularExpression[
+     "(<div id='problemContent'>)(.|\n)+(</div>\n\n<hr>)"]][[1]];
+pcontent = 
+  StringReplace[
+   pcontent, {"<div id='problemContent'>" -> 
+     "<div id='problemContent' style='font-size:12px'>", 
+    "<pre>" -> 
+     "<pre style=\"overflow:auto; \
+font-family:Menlo,Monaco,Consolas,&quot;Courier New&quot;,monospace; \
+font-size:13px; padding:9.5px; margin-top:0px; margin-bottom:10px; \
+line-height:1.42857; color:rgb(51,51,51); word-break:break-all; \
+word-wrap:break-word; background-color:rgb(245,245,245); border:1px \
+solid rgb(204,204,204)\">"}];
+(*pcontent finished*)
+code = Import["C:\\Users\\gl486\\Desktop\\nb\\cpp.txt"];(*读入代码*)
+incl = "(#include)";(*include*)
+hder = "( <)([a-z]+)(>)(\n)";(*头文件*)
+keyword = "(int|long|double|float|struct|class|void|bool|auto)";(*关键字*)
+\
+
+op = "(<|>|=|\+|-|\*|&";
+con = "|if|else|while|do|break|return|for|using namespace)";
+num = "((0x[0-9a-f]+)|([0-9]+(.[0-9]+)?))";
+str = "(\"(.*?)+\")";(*字符串*)note = "(//.+\n)";(*注释*)rp = \
+{RegularExpression[incl] -> "<span style='color:#C71585'>$1</span>", 
+  RegularExpression[hder] -> 
+   "<span style='color:#EEB422'> &lt;$2&gt;</span>$4", 
+  RegularExpression[keyword] -> 
+   "<span style='color:#43CD80;font-style:italic;'>$1</span>", 
+  RegularExpression[op <> con] -> 
+   "<span style='color:#C71585'>$1</span>", 
+  RegularExpression[num] -> "<span style='color:#9B30FF'>$1</span>", 
+  RegularExpression[str] -> "<span style='color:#CD950C'>$1</span>", 
+  RegularExpression[note] -> "<span style='color:#CD2626'>$1</span>"};
+code = StringReplace[code, rp];
+code = "<pre style=\"overflow:auto; \
+font-family:Menlo,Monaco,Consolas,&quot;Courier New&quot;,monospace; \
+font-size:13px; padding:9.5px; margin-top:0px; margin-bottom:10px; \
+line-height:1.42857; color:rgb(207,207,207); word-break:break-all; \
+word-wrap:break-word; background-color:rgb(30,30,30); border:1px \
+solid rgb(204,204,204)\">
+    " <> code <> "</pre>";(*加入<pre>标签*)
+article = pcontent <> code;
+
+Export["C:\\Users\\gl486\\Desktop\\nb\\cppRe.txt", article](*输出到文件*)
