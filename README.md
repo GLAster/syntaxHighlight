@@ -1,4 +1,4 @@
-# C++ syntaxHightlight
+# C++ syntaxHighlight
 
 关键词：正则表达式、C++语法高亮
 
