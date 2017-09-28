@@ -21,8 +21,6 @@ code = Import["C:\\Users\\gl486\\Desktop\\nb\\cpp.txt"];(*读入代码*)
 incl = "(#include)";(*include*)
 hder = "( <)([a-z]+)(>)(\n)";(*头文件*)
 keyword = "(int|long|double|float|struct|class|void|bool|auto)";(*关键字*)
-\
-
 op = "(<|>|=|\+|-|\*|&";
 con = "|if|else|while|do|break|return|for|using namespace)";
 num = "((0x[0-9a-f]+)|([0-9]+(.[0-9]+)?))";
